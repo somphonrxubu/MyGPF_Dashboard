@@ -21,13 +21,13 @@
                         sans: ['Inter', 'Sarabun', 'sans-serif'],
                     },
                     colors: {
-                        'gpf-dark': '#141518',
-                        'gpf-card': '#22242A',
-                        'gpf-card-hover': '#2A2C34',
-                        'gpf-green': '#22C55E',
-                        'gpf-green-light': '#34D399',
-                        'gpf-red': '#EF4444',
-                        'gpf-blue': '#2563EB',
+                        'gpf-dark': '#151515',
+                        'gpf-card': '#272729',
+                        'gpf-card-hover': '#303033',
+                        'gpf-green': '#32D74B',
+                        'gpf-green-light': '#34D759',
+                        'gpf-red': '#FF453A',
+                        'gpf-blue': '#2997FF',
                     }
                 }
             }
@@ -124,29 +124,29 @@
                 </div>
 
                 <!-- Total Amount Big Display -->
-                <div class="flex items-baseline font-bold text-white tracking-tight">
-                    <span class="text-3xl mr-0.5">฿</span>
-                    <span id="total-portfolio-value-main" class="text-4xl font-extrabold tracking-tight">701,676</span>
-                    <span id="total-portfolio-value-dec" class="text-2xl text-gray-300 font-semibold">.52</span>
+                <div class="flex items-baseline text-slate-900 dark:text-white tracking-tight">
+                    <span class="text-3xl sm:text-4xl font-bold mr-0.5">฿</span>
+                    <span id="total-portfolio-value-main" class="text-4xl sm:text-5xl font-bold tracking-tight">701,676</span>
+                    <span id="total-portfolio-value-dec" class="text-2xl sm:text-3xl text-slate-500 dark:text-gray-300 font-semibold">.52</span>
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-3 mt-1 mb-3">
+            <div class="grid grid-cols-2 gap-3 mt-2 mb-3">
                 <!-- Today Card -->
-                <div class="bg-gpf-card rounded-2xl p-3 flex flex-col justify-between border border-gray-800/80 shadow-md hover:bg-gpf-card-hover transition-all">
-                    <div class="text-xs text-gray-400 font-medium mb-1">ผลตอบแทนวันนี้</div>
+                <div class="bg-slate-100 dark:bg-gpf-card rounded-2xl p-3 flex flex-col justify-between border border-slate-200 dark:border-gray-800/80 shadow-md hover:bg-slate-200/60 dark:hover:bg-gpf-card-hover transition-all">
+                    <div class="text-xs text-slate-500 dark:text-gray-400 font-medium mb-1">ผลตอบแทนวันนี้</div>
                     <div>
-                        <div id="today-amount" class="text-xl sm:text-2xl font-extrabold text-gpf-green tracking-tight">+8,709.57</div>
-                        <div id="today-pct" class="text-sm sm:text-base font-bold text-gpf-green mt-0.5">+1.26%</div>
+                        <div id="today-amount" class="text-xl sm:text-2xl font-bold text-gpf-green tracking-tight">+8,709.57</div>
+                        <div id="today-pct" class="text-sm sm:text-base font-semibold text-gpf-green mt-0.5">+1.26%</div>
                     </div>
                 </div>
 
                 <!-- Profit Year Card -->
-                <div class="bg-gpf-card rounded-2xl p-3 flex flex-col justify-between border border-gray-800/80 shadow-md hover:bg-gpf-card-hover transition-all">
-                    <div id="profit-year-label" class="text-xs text-gray-400 font-medium mb-1">กำไรปี 2569</div>
+                <div class="bg-slate-100 dark:bg-gpf-card rounded-2xl p-3 flex flex-col justify-between border border-slate-200 dark:border-gray-800/80 shadow-md hover:bg-slate-200/60 dark:hover:bg-gpf-card-hover transition-all">
+                    <div id="profit-year-label" class="text-xs text-slate-500 dark:text-gray-400 font-medium mb-1">กำไรปี 2569</div>
                     <div>
-                        <div id="profit-year-amount" class="text-xl sm:text-2xl font-extrabold text-gpf-green tracking-tight">+121,648.03</div>
-                        <div id="profit-year-pct" class="text-sm sm:text-base font-bold text-gpf-green mt-0.5">+20.62%</div>
+                        <div id="profit-year-amount" class="text-xl sm:text-2xl font-bold text-gpf-green tracking-tight">+121,648.03</div>
+                        <div id="profit-year-pct" class="text-sm sm:text-base font-semibold text-gpf-green mt-0.5">+20.62%</div>
                     </div>
                 </div>
             </div>
@@ -227,14 +227,14 @@
 
     <!-- Details Modal Pop-up -->
     <div id="details-modal" onclick="if(event.target===this) closeDetailsModal()" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 opacity-0 pointer-events-none transition-all duration-300">
-        <div class="bg-gray-900 text-white rounded-2xl border border-gray-800 shadow-2xl w-full max-w-md max-h-[85vh] flex flex-col overflow-hidden transform scale-95 transition-transform duration-300" id="details-modal-content">
+        <div class="bg-gpf-dark text-white rounded-2xl border border-gray-800/80 shadow-2xl w-full max-w-md max-h-[85vh] flex flex-col overflow-hidden transform scale-95 transition-transform duration-300" id="details-modal-content">
             <!-- Modal Header -->
-            <div class="flex justify-between items-center p-4 border-b border-gray-800 bg-gray-900/95 sticky top-0 z-10">
+            <div class="flex justify-between items-center p-4 border-b border-gray-800/80 bg-gpf-dark/95 sticky top-0 z-10">
                 <div class="flex items-center space-x-2">
-                    <i class="fa-solid fa-table-list text-blue-500 text-sm"></i>
+                    <i class="fa-solid fa-table-list text-gpf-blue text-sm"></i>
                     <h3 class="text-base font-bold text-white tracking-wide">รายละเอียดผลตอบแทน</h3>
                 </div>
-                <button onclick="closeDetailsModal()" class="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white flex items-center justify-center transition-colors">
+                <button onclick="closeDetailsModal()" class="w-8 h-8 rounded-full bg-gpf-card hover:bg-gpf-card-hover text-gray-400 hover:text-white flex items-center justify-center transition-colors">
                     <i class="fa-solid fa-xmark text-sm"></i>
                 </button>
             </div>
@@ -242,8 +242,8 @@
             <!-- Modal Body Table -->
             <div class="overflow-y-auto custom-scrollbar p-3 sm:p-4 flex-grow">
                 <table class="w-full text-left border-collapse table-fixed">
-                    <thead class="sticky top-0 bg-gray-900 z-10">
-                        <tr class="text-[11px] sm:text-xs text-gray-400 border-b border-gray-800">
+                    <thead class="sticky top-0 bg-gpf-dark z-10">
+                        <tr class="text-[11px] sm:text-xs text-gray-400 border-b border-gray-800/80">
                             <th class="py-2 px-1 font-semibold text-center w-[28%]">วันที่</th>
                             <th class="py-2 px-1 font-semibold text-right w-[34%]">มูลค่าพอร์ตรวม</th>
                             <th class="py-2 px-1 font-semibold text-right w-[38%]">ผลตอบแทน</th>
@@ -259,30 +259,30 @@
 
     <!-- Calendar Modal Pop-up (Modern Thai Calendar starting on Sunday) -->
     <div id="calendar-modal" onclick="if(event.target===this) closeCalendarModal()" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4 opacity-0 pointer-events-none transition-all duration-300">
-        <div id="calendar-modal-content" class="bg-gray-900 text-white rounded-3xl border border-gray-800/90 shadow-2xl w-full max-w-sm flex flex-col overflow-hidden transform scale-95 transition-all duration-300">
+        <div id="calendar-modal-content" class="bg-gpf-dark text-white rounded-3xl border border-gray-800/90 shadow-2xl w-full max-w-sm flex flex-col overflow-hidden transform scale-95 transition-all duration-300">
             <!-- Modal Header -->
-            <div class="flex justify-between items-center px-5 py-4 border-b border-gray-800/80 bg-gray-900/95">
+            <div class="flex justify-between items-center px-5 py-4 border-b border-gray-800/80 bg-gpf-dark/95">
                 <div class="flex items-center space-x-2.5">
-                    <div class="w-8 h-8 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400">
+                    <div class="w-8 h-8 rounded-xl bg-gpf-blue/20 border border-gpf-blue/30 flex items-center justify-center text-gpf-blue">
                         <i class="fa-regular fa-calendar-days text-sm"></i>
                     </div>
                     <h3 class="text-base font-bold text-white tracking-wide">เลือกวันที่ต้องการ</h3>
                 </div>
-                <button onclick="closeCalendarModal()" class="w-8 h-8 rounded-full bg-gray-800/80 hover:bg-gray-700 text-gray-400 hover:text-white flex items-center justify-center transition-colors">
+                <button onclick="closeCalendarModal()" class="w-8 h-8 rounded-full bg-gpf-card hover:bg-gpf-card-hover text-gray-400 hover:text-white flex items-center justify-center transition-colors">
                     <i class="fa-solid fa-xmark text-sm"></i>
                 </button>
             </div>
 
             <!-- Calendar Control Bar (Month/Year Switcher) -->
-            <div class="p-4 bg-gray-900">
-                <div class="flex justify-between items-center bg-gray-800/60 p-2 rounded-2xl border border-gray-700/50 mb-3 shadow-inner">
-                    <button onclick="changeCalendarMonth(-1)" class="w-8 h-8 rounded-xl bg-gray-700/50 hover:bg-gray-600 text-gray-300 hover:text-white flex items-center justify-center transition-colors">
+            <div class="p-4 bg-gpf-dark">
+                <div class="flex justify-between items-center bg-gpf-card p-2 rounded-2xl border border-gray-800 mb-3 shadow-inner">
+                    <button onclick="changeCalendarMonth(-1)" class="w-8 h-8 rounded-xl bg-gpf-card-hover hover:bg-gray-700 text-gray-300 hover:text-white flex items-center justify-center transition-colors">
                         <i class="fa-solid fa-chevron-left text-xs"></i>
                     </button>
                     <div id="calendar-month-year-title" class="text-sm font-extrabold text-white tracking-wide">
                         สิงหาคม 2569
                     </div>
-                    <button onclick="changeCalendarMonth(1)" class="w-8 h-8 rounded-xl bg-gray-700/50 hover:bg-gray-600 text-gray-300 hover:text-white flex items-center justify-center transition-colors">
+                    <button onclick="changeCalendarMonth(1)" class="w-8 h-8 rounded-xl bg-gpf-card-hover hover:bg-gray-700 text-gray-300 hover:text-white flex items-center justify-center transition-colors">
                         <i class="fa-solid fa-chevron-right text-xs"></i>
                     </button>
                 </div>
@@ -291,23 +291,23 @@
                 <div class="flex justify-between items-center px-1 mb-3">
                     <div class="flex items-center space-x-3 text-[11px] text-gray-400 font-medium">
                         <div class="flex items-center space-x-1.5">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block shadow-sm shadow-emerald-400/50"></span>
+                            <span class="w-2 h-2 rounded-full bg-gpf-green inline-block shadow-sm shadow-gpf-green/50"></span>
                             <span>กำไร</span>
                         </div>
                         <div class="flex items-center space-x-1.5">
-                            <span class="w-2 h-2 rounded-full bg-rose-500 inline-block shadow-sm shadow-rose-500/50"></span>
+                            <span class="w-2 h-2 rounded-full bg-gpf-red inline-block shadow-sm shadow-gpf-red/50"></span>
                             <span>ขาดทุน</span>
                         </div>
                     </div>
-                    <button onclick="goToLatestDate()" class="text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors flex items-center space-x-1.5 bg-blue-500/10 px-2.5 py-1 rounded-full border border-blue-500/20">
+                    <button onclick="goToLatestDate()" class="text-xs font-bold text-gpf-blue hover:text-blue-300 transition-colors flex items-center space-x-1.5 bg-gpf-blue/10 px-2.5 py-1 rounded-full border border-gpf-blue/20">
                         <i class="fa-solid fa-clock-rotate-left text-[10px]"></i>
                         <span>ไปยังวันที่ล่าสุด</span>
                     </button>
                 </div>
 
                 <!-- Days of Week Header (Starting on Sunday!) -->
-                <div class="grid grid-cols-7 gap-1 text-center text-xs font-bold mb-2 py-1.5 bg-gray-800/40 rounded-xl border border-gray-800">
-                    <span class="text-rose-400">อา.</span>
+                <div class="grid grid-cols-7 gap-1 text-center text-xs font-bold mb-2 py-1.5 bg-gpf-card/60 rounded-xl border border-gray-800/80">
+                    <span class="text-gpf-red">อา.</span>
                     <span class="text-gray-400">จ.</span>
                     <span class="text-gray-400">อ.</span>
                     <span class="text-gray-400">พ.</span>
@@ -324,8 +324,8 @@
         </div>
     </div>
 
-    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs px-4 py-2.5 rounded-full shadow-2xl opacity-0 pointer-events-none transition-all duration-300 border border-gray-700 z-50 flex items-center space-x-2">
-        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400"></i>
+    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-gpf-card text-white text-xs px-4 py-2.5 rounded-full shadow-2xl opacity-0 pointer-events-none transition-all duration-300 border border-gray-800 z-50 flex items-center space-x-2">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-gpf-green"></i>
         <span id="toast-msg">โหลดข้อมูลเรียบร้อยแล้ว</span>
     </div>
 
@@ -711,8 +711,8 @@
             const ctx = document.getElementById('portfolioChart').getContext('2d');
             
             const gradient = ctx.createLinearGradient(0, 0, 0, 180);
-            gradient.addColorStop(0, 'rgba(34, 197, 94, 0.35)');
-            gradient.addColorStop(1, 'rgba(34, 197, 94, 0.0)');
+            gradient.addColorStop(0, 'rgba(50, 215, 75, 0.35)');
+            gradient.addColorStop(1, 'rgba(50, 215, 75, 0.0)');
 
             chartInstance = new Chart(ctx, {
                 type: 'line',
@@ -721,13 +721,13 @@
                     datasets: [{
                         label: 'รวมสะสม',
                         data: [],
-                        borderColor: '#22C55E',
+                        borderColor: '#32D74B',
                         borderWidth: 2.5,
                         backgroundColor: gradient,
                         fill: true,
                         tension: 0.35,
-                        pointBackgroundColor: '#22C55E',
-                        pointBorderColor: '#141518',
+                        pointBackgroundColor: '#32D74B',
+                        pointBorderColor: '#151515',
                         pointBorderWidth: 2,
                         pointRadius: 4,
                         pointHoverRadius: 6,
@@ -771,7 +771,7 @@
                 tooltipEl.style.pointerEvents = 'none';
                 tooltipEl.style.transition = 'all 0.15s ease';
                 tooltipEl.style.zIndex = '100';
-                tooltipEl.className = 'bg-gray-900/95 text-white px-3.5 py-2.5 rounded-xl shadow-2xl border border-gray-700/80 backdrop-blur-md text-left min-w-[140px]';
+                tooltipEl.className = 'bg-gpf-card/95 text-white px-3.5 py-2.5 rounded-xl shadow-2xl border border-gray-800/90 backdrop-blur-md text-left min-w-[140px]';
                 chart.canvas.parentNode.appendChild(tooltipEl);
             }
 
@@ -1109,7 +1109,6 @@
             const firstDayObj = new Date(gregorianYear, calViewMonth, 1);
             
             // getDay(): 0 = Sunday, 1 = Monday, ..., 6 = Saturday.
-            // Since Sunday is the first day of the week, firstDayIndex directly equals getDay()
             const firstDayIndex = firstDayObj.getDay(); 
 
             const daysInMonth = new Date(gregorianYear, calViewMonth + 1, 0).getDate();
@@ -1140,17 +1139,17 @@
                 let btnClasses = "h-10 rounded-xl flex flex-col items-center justify-center relative transition-all duration-200 cursor-pointer ";
                 
                 if (isSelected) {
-                    btnClasses += "bg-blue-600 text-white font-extrabold shadow-lg shadow-blue-600/40 ring-2 ring-blue-400/80 scale-105 z-10";
+                    btnClasses += "bg-gpf-blue text-white font-extrabold shadow-lg shadow-gpf-blue/40 ring-2 ring-blue-400/80 scale-105 z-10";
                 } else if (hasData) {
-                    btnClasses += "bg-gray-800/90 text-white font-bold hover:bg-gray-700/90 border border-gray-700/60 shadow-sm";
+                    btnClasses += "bg-gpf-card text-white font-bold hover:bg-gpf-card-hover border border-gray-800/80 shadow-sm";
                 } else {
-                    btnClasses += "text-gray-500 hover:bg-gray-800/40 hover:text-gray-300";
+                    btnClasses += "text-gray-500 hover:bg-gpf-card/40 hover:text-gray-300";
                 }
 
                 let dotIndicator = '';
                 if (hasData) {
                     const isProfit = rec && (rec.profit >= 0);
-                    const dotColor = isProfit ? 'bg-emerald-400 shadow-emerald-400/60' : 'bg-rose-500 shadow-rose-500/60';
+                    const dotColor = isProfit ? 'bg-gpf-green shadow-gpf-green/60' : 'bg-gpf-red shadow-gpf-red/60';
                     if (isSelected) {
                         dotIndicator = `<span class="w-1.5 h-1.5 bg-white rounded-full absolute bottom-1"></span>`;
                     } else {
@@ -1215,7 +1214,7 @@
                 const shortDateStr = dateInfo.monthShort ? `${dateInfo.day} ${dateInfo.monthShort} ${dateInfo.year}` : item.dateStr;
 
                 return `
-                    <tr class="hover:bg-gray-800/50 transition-colors">
+                    <tr class="hover:bg-gpf-card-hover/60 transition-colors">
                         <td class="py-2.5 px-1 font-medium text-gray-300 text-[11px] sm:text-xs text-center truncate">${shortDateStr}</td>
                         <td class="py-2.5 px-1 font-bold text-white text-right text-xs sm:text-sm truncate">${formatNumber(item.total)}</td>
                         <td class="py-2.5 px-1 font-semibold text-right ${profitClass} text-xs sm:text-sm truncate">
