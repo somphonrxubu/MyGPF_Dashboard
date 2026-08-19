@@ -21,13 +21,13 @@
                         sans: ['Inter', 'Sarabun', 'sans-serif'],
                     },
                     colors: {
-                        'gpf-dark': '#151515',
-                        'gpf-card': '#272729',
-                        'gpf-card-hover': '#303033',
-                        'gpf-green': '#32D74B',
-                        'gpf-green-light': '#34D759',
-                        'gpf-red': '#FF453A',
-                        'gpf-blue': '#2997FF',
+                        'gpf-dark': '#141518',
+                        'gpf-card': '#22242A',
+                        'gpf-card-hover': '#2A2C34',
+                        'gpf-green': '#22C55E',
+                        'gpf-green-light': '#34D399',
+                        'gpf-red': '#EF4444',
+                        'gpf-blue': '#2563EB',
                     }
                 }
             }
@@ -68,7 +68,7 @@
                         <i class="fa-solid font-bold text-white text-base fa-chart-line"></i>
                     </div>
                     <div class="flex items-baseline space-x-1">
-                        <span class="text-white font-extrabold text-lg tracking-wider">MY</span>
+                        <span class="text-white font-bold text-lg tracking-wider">MY</span>
                         <span class="text-blue-500 font-black text-lg tracking-wider">GPF</span>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
                 <div class="flex items-center space-x-2.5">
                     <div class="text-right">
                         <div class="text-xs text-gray-400 font-medium">สวัสดี</div>
-                        <div id="user-name" class="text-sm sm:text-base font-bold text-white tracking-wide">สมผล สังขะวรรณ</div>
+                        <div id="user-name" class="text-sm sm:text-base font-black text-white tracking-wide">สมผล สังขะวรรณ</div>
                     </div>
                     <div class="relative cursor-pointer group" onclick="document.getElementById('profile-upload').click()" title="คลิกเพื่อเปลี่ยนรูปโปรไฟล์">
                         <img id="user-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Somphon" alt="Profile" class="w-10 h-10 rounded-full bg-teal-800 p-0.5 border border-teal-500/40 shadow-sm object-cover transition-transform group-hover:scale-105" onerror="this.src='https://placehold.co/100x100/1e293b/ffffff?text=User'">
@@ -124,29 +124,29 @@
                 </div>
 
                 <!-- Total Amount Big Display -->
-                <div class="flex items-baseline text-slate-900 dark:text-white tracking-tight">
-                    <span class="text-3xl sm:text-4xl font-bold mr-0.5">฿</span>
-                    <span id="total-portfolio-value-main" class="text-4xl sm:text-5xl font-bold tracking-tight">701,676</span>
-                    <span id="total-portfolio-value-dec" class="text-2xl sm:text-3xl text-slate-500 dark:text-gray-300 font-semibold">.52</span>
+                <div class="flex items-baseline font-bold text-white tracking-tight">
+                    <span class="text-3xl mr-0.5">฿</span>
+                    <span id="total-portfolio-value-main" class="text-4xl font-bold tracking-tight">701,676</span>
+                    <span id="total-portfolio-value-dec" class="text-2xl text-gray-300 font-semibold">.52</span>
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-3 mt-2 mb-3">
+            <div class="grid grid-cols-2 gap-3 mt-1 mb-3">
                 <!-- Today Card -->
-                <div class="bg-slate-100 dark:bg-gpf-card rounded-2xl p-3 flex flex-col justify-between border border-slate-200 dark:border-gray-800/80 shadow-md hover:bg-slate-200/60 dark:hover:bg-gpf-card-hover transition-all">
-                    <div class="text-xs text-slate-500 dark:text-gray-400 font-medium mb-1">ผลตอบแทนวันนี้</div>
+                <div class="bg-gpf-card rounded-2xl p-3 flex flex-col justify-between border border-gray-800/80 shadow-md hover:bg-gpf-card-hover transition-all">
+                    <div class="text-xs text-gray-400 font-medium mb-1">ผลตอบแทนวันนี้</div>
                     <div>
                         <div id="today-amount" class="text-xl sm:text-2xl font-bold text-gpf-green tracking-tight">+8,709.57</div>
-                        <div id="today-pct" class="text-sm sm:text-base font-semibold text-gpf-green mt-0.5">+1.26%</div>
+                        <div id="today-pct" class="text-sm sm:text-base font-bold text-gpf-green mt-0.5">+1.26%</div>
                     </div>
                 </div>
 
                 <!-- Profit Year Card -->
-                <div class="bg-slate-100 dark:bg-gpf-card rounded-2xl p-3 flex flex-col justify-between border border-slate-200 dark:border-gray-800/80 shadow-md hover:bg-slate-200/60 dark:hover:bg-gpf-card-hover transition-all">
-                    <div id="profit-year-label" class="text-xs text-slate-500 dark:text-gray-400 font-medium mb-1">กำไรปี 2569</div>
+                <div class="bg-gpf-card rounded-2xl p-3 flex flex-col justify-between border border-gray-800/80 shadow-md hover:bg-gpf-card-hover transition-all">
+                    <div id="profit-year-label" class="text-xs text-gray-400 font-medium mb-1">กำไรปี 2569</div>
                     <div>
                         <div id="profit-year-amount" class="text-xl sm:text-2xl font-bold text-gpf-green tracking-tight">+121,648.03</div>
-                        <div id="profit-year-pct" class="text-sm sm:text-base font-semibold text-gpf-green mt-0.5">+20.62%</div>
+                        <div id="profit-year-pct" class="text-sm sm:text-base font-bold text-gpf-green mt-0.5">+20.62%</div>
                     </div>
                 </div>
             </div>
@@ -199,7 +199,7 @@
                     <div class="flex items-start space-x-2.5 max-w-[42%]">
                         <div class="w-2.5 h-2.5 rounded-full bg-blue-600 mt-1.5 flex-shrink-0"></div>
                         <div>
-                            <div id="plan-name" class="text-base sm:text-lg font-extrabold text-gray-900 leading-tight">แผนการลงทุนตามหลักชะรีอะฮ์</div>
+                            <div id="plan-name" class="text-base sm:text-lg font-bold text-gray-900 leading-tight">แผนชะรีอะฮ์</div>
                             <div class="flex items-center text-xs sm:text-sm text-gray-400 mt-1">
                                 <i class="fa-regular fa-clock text-[10px] mr-1"></i>
                                 <span>100.00%</span>
@@ -211,13 +211,13 @@
                     <div class="flex items-center space-x-3 text-center">
                         <!-- Total Value & Total Profit Sum -->
                         <div class="w-28 text-center">
-                            <div id="plan-value" class="text-base sm:text-lg font-extrabold text-gray-900">701,676.52</div>
+                            <div id="plan-value" class="text-base sm:text-lg font-bold text-gray-900">701,676.52</div>
                             <div id="plan-profit-sum" class="text-xs sm:text-sm font-semibold text-gpf-green">(+103,881.08)</div>
                         </div>
 
                         <!-- Today Return % & Amount -->
                         <div class="w-24 text-center">
-                            <div id="plan-pct" class="text-base sm:text-lg font-extrabold text-gpf-green">+1.26%</div>
+                            <div id="plan-pct" class="text-base sm:text-lg font-bold text-gpf-green">+1.26%</div>
                             <div id="plan-diff" class="text-xs sm:text-sm font-semibold text-gpf-green">(+8,709.57)</div>
                         </div>
                     </div>
@@ -279,7 +279,7 @@
                     <button onclick="changeCalendarMonth(-1)" class="w-8 h-8 rounded-xl bg-gpf-card-hover hover:bg-gray-700 text-gray-300 hover:text-white flex items-center justify-center transition-colors">
                         <i class="fa-solid fa-chevron-left text-xs"></i>
                     </button>
-                    <div id="calendar-month-year-title" class="text-sm font-extrabold text-white tracking-wide">
+                    <div id="calendar-month-year-title" class="text-sm font-bold text-white tracking-wide">
                         สิงหาคม 2569
                     </div>
                     <button onclick="changeCalendarMonth(1)" class="w-8 h-8 rounded-xl bg-gpf-card-hover hover:bg-gray-700 text-gray-300 hover:text-white flex items-center justify-center transition-colors">
@@ -345,13 +345,13 @@
 
         // Fallback sample data in case network is offline
         const MOCK_DATA = [
-            { dateStr: "4 ส.ค. 2569", total: 685200.00, diff: 1200.00, profit: 10000.00, returnPct: 1.80, plan: "แผนการลงทุนตามหลักชะรีอะฮ์" },
-            { dateStr: "5 ส.ค. 2569", total: 681400.00, diff: -3800.00, profit: -3800.00, returnPct: -0.55, plan: "แผนการลงทุนตามหลักชะรีอะฮ์" },
-            { dateStr: "6 ส.ค. 2569", total: 676100.00, diff: -5300.00, profit: -5300.00, returnPct: -0.78, plan: "แผนการลงทุนตามหลักชะรีอะฮ์" },
-            { dateStr: "7 ส.ค. 2569", total: 679800.00, diff: 3700.00, profit: 3700.00, returnPct: 0.55, plan: "แผนการลงทุนตามหลักชะรีอะฮ์" },
-            { dateStr: "10 ส.ค. 2569", total: 678900.00, diff: -900.00, profit: -900.00, returnPct: -0.13, plan: "แผนการลงทุนตามหลักชะรีอะฮ์" },
-            { dateStr: "11 ส.ค. 2569", total: 692966.95, diff: 14066.95, profit: 14066.95, returnPct: 18.47, plan: "แผนการลงทุนตามหลักชะรีอะฮ์" },
-            { dateStr: "13 ส.ค. 2569", total: 701676.52, diff: 8709.57, profit: 103881.08, returnPct: 1.26, plan: "แผนการลงทุนตามหลักชะรีอะฮ์" }
+            { dateStr: "4 ส.ค. 2569", total: 685200.00, diff: 1200.00, profit: 10000.00, returnPct: 1.80, plan: "แผนชะรีอะฮ์" },
+            { dateStr: "5 ส.ค. 2569", total: 681400.00, diff: -3800.00, profit: -3800.00, returnPct: -0.55, plan: "แผนชะรีอะฮ์" },
+            { dateStr: "6 ส.ค. 2569", total: 676100.00, diff: -5300.00, profit: -5300.00, returnPct: -0.78, plan: "แผนชะรีอะฮ์" },
+            { dateStr: "7 ส.ค. 2569", total: 679800.00, diff: 3700.00, profit: 3700.00, returnPct: 0.55, plan: "แผนชะรีอะฮ์" },
+            { dateStr: "10 ส.ค. 2569", total: 678900.00, diff: -900.00, profit: -900.00, returnPct: -0.13, plan: "แผนชะรีอะฮ์" },
+            { dateStr: "11 ส.ค. 2569", total: 692966.95, diff: 14066.95, profit: 14066.95, returnPct: 18.47, plan: "แผนชะรีอะฮ์" },
+            { dateStr: "13 ส.ค. 2569", total: 701676.52, diff: 8709.57, profit: 103881.08, returnPct: 1.26, plan: "แผนชะรีอะฮ์" }
         ];
 
         window.onload = function() {
@@ -476,7 +476,7 @@
                     diff: cleanNum(row[colDiff]),
                     profit: cleanNum(row[colProfit]),
                     returnPct: cleanNum(row[colReturn]),
-                    plan: cleanStr(row[colPlan]) || "แผนการลงทุนตามหลักชะรีอะฮ์"
+                    plan: cleanStr(row[colPlan]) || "แผนชะรีอะฮ์"
                 });
             }
             return list.length > 0 ? list : null;
@@ -801,7 +801,7 @@
                     tooltipEl.innerHTML = `
                         <div class="text-[11px] text-gray-400 font-medium mb-0.5">${dateStr}</div>
                         <div class="flex items-baseline space-x-1">
-                            <span class="text-base font-extrabold text-white tracking-tight">${totalFormatted}</span>
+                            <span class="text-base font-bold text-white tracking-tight">${totalFormatted}</span>
                             <span class="text-[10px] sm:text-xs font-normal text-gray-400">บาท</span>
                         </div>
                         <div class="flex items-baseline justify-start space-x-1 mt-0.5 ${colorClass}">
@@ -972,12 +972,12 @@
             const currentData = rawData[selectedIndex];
             const userName = document.getElementById('user-name') ? document.getElementById('user-name').innerText : 'สมผล สังขะวรรณ';
             
-            // Format plan name for concise display (e.g., "แผนการลงทุนตามหลักชะรีอะฮ์" -> "ชะรีอะฮ์")
+            // Format plan name for concise display (e.g., "แผนชะรีอะฮ์" -> "ชะรีอะฮ์")
             let planName = currentData.plan || "ชะรีอะฮ์";
             if (planName.includes("ชะรีอะฮ์")) {
                 planName = "ชะรีอะฮ์";
             } else {
-                planName = planName.replace(/^แผนการลงทุน(ตามหลัก)?/, '').trim();
+                planName = planName.replace(/^แผน?/, '').trim();
             }
 
             const textToShare = `มูลค่าพอร์ต คุณ${userName}\nแผนการลงทุน ${planName}\nประจำวันที่ ${currentData.dateStr}\nมูลค่าพอร์ตรวม ${formatNumber(currentData.total)} บาท\nผลตอบแทนวันนี้ ${formatSignMoney(currentData.diff)} (${formatSignPct(currentData.returnPct)})`;
@@ -1139,7 +1139,7 @@
                 let btnClasses = "h-10 rounded-xl flex flex-col items-center justify-center relative transition-all duration-200 cursor-pointer ";
                 
                 if (isSelected) {
-                    btnClasses += "bg-gpf-blue text-white font-extrabold shadow-lg shadow-gpf-blue/40 ring-2 ring-blue-400/80 scale-105 z-10";
+                    btnClasses += "bg-gpf-blue text-white font-bold shadow-lg shadow-gpf-blue/40 ring-2 ring-blue-400/80 scale-105 z-10";
                 } else if (hasData) {
                     btnClasses += "bg-gpf-card text-white font-bold hover:bg-gpf-card-hover border border-gray-800/80 shadow-sm";
                 } else {
