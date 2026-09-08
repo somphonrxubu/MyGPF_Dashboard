@@ -170,58 +170,33 @@
             </div>
         </div>
 
+        <!-- BOTTOM SECTION: PLAN BREAKDOWN (SYNCED WITH CHART RANGE) -->
         <div class="bg-white text-gray-800 p-5 rounded-t-3xl min-h-[220px] shadow-inner flex-grow">
-            <!-- Section Header -->
-            <div class="mb-4">
+            <!-- Section Header: Dynamic Plan Name from Sheet -->
+            <div class="mb-3">
                 <div class="flex justify-between items-center">
-                    <h3 class="text-sm font-bold text-gray-900 tracking-wide">แผนการลงทุน</h3>
-                    <button onclick="openDetailsModal()" class="text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors flex items-center space-x-1 cursor-pointer">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-2.5 h-2.5 rounded-full bg-blue-600"></div>
+                        <h3 id="card-plan-title" class="text-base font-bold text-gray-900 tracking-wide">แผนชะรีอะฮ์</h3>
+                    </div>
+                    <button onclick="openDetailsModal()" class="text-xs sm:text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors flex items-center space-x-1 cursor-pointer" title="ดูตารางประวัติทั้งหมด">
                         <span>ดูรายละเอียด</span>
                         <i class="fa-solid fa-chevron-right text-xs"></i>
                     </button>
                 </div>
-                <div class="w-full h-1 bg-blue-600 rounded-full mt-1.5"></div>
+                <div class="w-full h-1 bg-blue-600 rounded-full mt-2"></div>
             </div>
 
-            <!-- Table Header Titles -->
-            <div class="flex justify-between items-center text-xs text-gray-400 pb-2 border-b border-gray-100 font-medium">
-                <span id="plan-count-header">1 แผน</span>
-                <div class="flex space-x-3 text-center">
-                    <span class="w-28 text-center">มูลค่าพอร์ตรวม</span>
-                    <span class="w-24 text-center">% วันนี้</span>
-                </div>
+            <!-- Table Header Titles: 3 Columns (รายการ, ผลตอบแทน, % ผลตอบแทน) -->
+            <div class="flex justify-between items-center text-xs font-bold text-gray-400 py-2 border-b border-gray-100 px-1">
+                <span class="w-[46%] text-left">รายการ</span>
+                <span class="w-[28%] text-right">ผลตอบแทน</span>
+                <span class="w-[26%] text-right">% ผลตอบแทน</span>
             </div>
 
-            <!-- Plan Item Row -->
-            <div id="plan-list-container" class="mt-3">
-                <div class="flex items-center justify-between py-2 border-b border-gray-50 hover:bg-gray-50/50 rounded-lg transition-colors px-1">
-                    <!-- Left: Plan Name & Allocation -->
-                    <div class="flex items-start space-x-2.5 max-w-[42%]">
-                        <div class="w-2.5 h-2.5 rounded-full bg-blue-600 mt-1.5 flex-shrink-0"></div>
-                        <div>
-                            <div id="plan-name" class="text-base sm:text-lg font-bold text-gray-900 leading-tight">แผนชะรีอะฮ์</div>
-                            <div class="flex items-center text-xs sm:text-sm text-gray-400 mt-1">
-                                <i class="fa-regular fa-clock text-[10px] mr-1"></i>
-                                <span>100.00%</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Right: Value & Today Performance -->
-                    <div class="flex items-center space-x-3 text-center">
-                        <!-- Total Value & Total Profit Sum -->
-                        <div class="w-28 text-center">
-                            <div id="plan-value" class="text-base sm:text-lg font-bold text-gray-900">701,676.52</div>
-                            <div id="plan-profit-sum" class="text-xs sm:text-sm font-semibold text-gpf-green">(+103,881.08)</div>
-                        </div>
-
-                        <!-- Today Return % & Amount -->
-                        <div class="w-24 text-center">
-                            <div id="plan-pct" class="text-base sm:text-lg font-bold text-gpf-green">+1.26%</div>
-                            <div id="plan-diff" class="text-xs sm:text-sm font-semibold text-gpf-green">(+8,709.57)</div>
-                        </div>
-                    </div>
-                </div>
+            <!-- Dynamic Breakdown Rows Container based on Chart Range -->
+            <div id="plan-breakdown-container" class="divide-y divide-gray-100 max-h-[270px] overflow-y-auto custom-scrollbar">
+                <!-- Dynamic Items based on selected range: 7d, monthly, yearly, all -->
             </div>
         </div>
 
@@ -559,36 +534,8 @@
             document.getElementById('profit-year-label').innerText = `กำไรปี ${currentYear || '2569'}`;
             renderMetric('profit-year-amount', 'profit-year-pct', yearProfitSum, yearPctSum, true);
 
-            // 5. Investment Plan Row
-            document.getElementById('plan-name').innerText = currentData.plan;
-            document.getElementById('plan-value').innerText = isBalanceVisible ? formatNumber(currentData.total) : '•••,•••.••';
-            
-            // Total Profit Sum (Sum of column H up to selected date)
-            const totalProfitSum = rawData.slice(0, selectedIndex + 1).reduce((acc, r) => acc + (r.profit || 0), 0);
-            const planProfitSumEl = document.getElementById('plan-profit-sum');
-
-            if (planProfitSumEl) {
-                if (isBalanceVisible) {
-                    planProfitSumEl.innerText = `(${formatSignMoney(totalProfitSum)})`;
-                } else {
-                    planProfitSumEl.innerText = '(••••••)';
-                }
-                setTrendColor(planProfitSumEl, totalProfitSum);
-            }
-
-            const planPctEl = document.getElementById('plan-pct');
-            const planDiffEl = document.getElementById('plan-diff');
-
-            if (isBalanceVisible) {
-                planPctEl.innerText = formatSignPct(todayPct);
-                planDiffEl.innerText = `(${formatSignMoney(todayDiff)})`;
-            } else {
-                planPctEl.innerText = '•••%';
-                planDiffEl.innerText = '(••••••)';
-            }
-            
-            setTrendColor(planPctEl, todayPct);
-            setTrendColor(planDiffEl, todayDiff);
+            // 5. Investment Plan Card & Breakdown Table (Synced with chart range)
+            renderPlanBreakdown();
 
             // 6. Refresh Chart
             renderChart();
@@ -966,6 +913,148 @@
 
         function updateChartRange() {
             renderChart();
+            renderPlanBreakdown();
+        }
+
+        function renderPlanBreakdown() {
+            if (!rawData || rawData.length === 0) return;
+
+            const currentRec = rawData[selectedIndex];
+            const planName = currentRec.plan || "แผนชะรีอะฮ์";
+            const cardPlanTitle = document.getElementById('card-plan-title');
+            if (cardPlanTitle) {
+                cardPlanTitle.innerText = planName;
+            }
+
+            const range = document.getElementById('chart-range-select') ? document.getElementById('chart-range-select').value : '7d';
+            const recordsUpToSelected = rawData.slice(0, selectedIndex + 1);
+            const currentInfo = parseDateInfo(currentRec.dateStr);
+            const currentYear = currentInfo.year;
+
+            const listContainer = document.getElementById('plan-breakdown-container');
+            if (!listContainer) return;
+
+            let items = [];
+
+            if (range === '7d') {
+                // 1. 7 วันล่าสุด เรียงจากบนลงล่าง ใหม่ไปเก่า
+                const last7 = recordsUpToSelected.slice(-7);
+                const reversed = [...last7].reverse();
+                items = reversed.map(d => {
+                    const info = parseDateInfo(d.dateStr);
+                    const label = `${info.day} ${THAI_FULL_MONTHS[info.monthIdx]} ${info.year}`;
+                    const profitVal = (d.profit !== undefined && d.profit !== 0) ? d.profit : (d.diff || 0);
+                    const pctVal = d.returnPct || 0;
+                    return { label, profit: profitVal, returnPct: pctVal };
+                });
+            } else if (range === 'monthly') {
+                // 2. รายเดือนในปีปัจจุบัน เรียงจากบนลงล่าง ใหม่ไปเก่า
+                const thisYearRecords = recordsUpToSelected.filter(d => parseDateInfo(d.dateStr).year === currentYear);
+                const monthGroupMap = new Map();
+
+                thisYearRecords.forEach(d => {
+                    const info = parseDateInfo(d.dateStr);
+                    if (!monthGroupMap.has(info.monthIdx)) {
+                        monthGroupMap.set(info.monthIdx, []);
+                    }
+                    monthGroupMap.get(info.monthIdx).push(d);
+                });
+
+                // เรียงเดือนจากใหม่ไปเก่า (มากไปน้อย เช่น ก.ย. -> ม.ค.)
+                const sortedMonthKeys = Array.from(monthGroupMap.keys()).sort((a, b) => b - a);
+                items = sortedMonthKeys.map(mIdx => {
+                    const recs = monthGroupMap.get(mIdx);
+                    const sumProfit = recs.reduce((acc, r) => acc + (r.profit || 0), 0);
+                    const sumReturnPct = recs.reduce((acc, r) => acc + (r.returnPct || 0), 0);
+                    return {
+                        label: `${THAI_FULL_MONTHS[mIdx]} ${currentYear}`,
+                        profit: sumProfit,
+                        returnPct: sumReturnPct
+                    };
+                });
+            } else if (range === 'yearly') {
+                // 3. รายปีย้อนหลัง 10 ปี เรียงจากบนลงล่าง ใหม่ไปเก่า
+                const minYear = currentYear - 9;
+                const yearGroupMap = new Map();
+
+                recordsUpToSelected.forEach(d => {
+                    const info = parseDateInfo(d.dateStr);
+                    if (info.year >= minYear && info.year <= currentYear) {
+                        if (!yearGroupMap.has(info.year)) {
+                            yearGroupMap.set(info.year, []);
+                        }
+                        yearGroupMap.get(info.year).push(d);
+                    }
+                });
+
+                // เรียงปีจากใหม่ไปเก่า (มากไปน้อย เช่น 2569 -> 2560)
+                const sortedYears = Array.from(yearGroupMap.keys()).sort((a, b) => b - a);
+                items = sortedYears.map(y => {
+                    const recs = yearGroupMap.get(y);
+                    const sumProfit = recs.reduce((acc, r) => acc + (r.profit || 0), 0);
+                    const sumReturnPct = recs.reduce((acc, r) => acc + (r.returnPct || 0), 0);
+                    return {
+                        label: `ปี ${y}`,
+                        profit: sumProfit,
+                        returnPct: sumReturnPct
+                    };
+                });
+            } else if (range === 'all') {
+                // 4. ทั้งหมดย้อนหลังจนถึงปีแรก เรียงจากบนลงล่าง ใหม่ไปเก่า
+                const yearGroupMap = new Map();
+
+                recordsUpToSelected.forEach(d => {
+                    const info = parseDateInfo(d.dateStr);
+                    if (info.year <= currentYear) {
+                        if (!yearGroupMap.has(info.year)) {
+                            yearGroupMap.set(info.year, []);
+                        }
+                        yearGroupMap.get(info.year).push(d);
+                    }
+                });
+
+                // เรียงปีจากใหม่ไปเก่า (มากไปน้อย)
+                const sortedYears = Array.from(yearGroupMap.keys()).sort((a, b) => b - a);
+                items = sortedYears.map(y => {
+                    const recs = yearGroupMap.get(y);
+                    const sumProfit = recs.reduce((acc, r) => acc + (r.profit || 0), 0);
+                    const sumReturnPct = recs.reduce((acc, r) => acc + (r.returnPct || 0), 0);
+                    return {
+                        label: `ปี ${y}`,
+                        profit: sumProfit,
+                        returnPct: sumReturnPct
+                    };
+                });
+            }
+
+            if (items.length === 0) {
+                listContainer.innerHTML = `<div class="py-6 text-center text-xs text-gray-400">ไม่มีข้อมูลในช่วงที่เลือก</div>`;
+                return;
+            }
+
+            listContainer.innerHTML = items.map(item => {
+                let formattedProfit = '';
+                let formattedPct = '';
+
+                if (isBalanceVisible) {
+                    formattedProfit = formatSignMoney(item.profit);
+                    formattedPct = formatSignPct(item.returnPct);
+                } else {
+                    formattedProfit = '•••••••';
+                    formattedPct = '•••%';
+                }
+
+                const profitClass = item.profit > 0 ? 'text-gpf-green' : (item.profit < 0 ? 'text-gpf-red' : 'text-gray-400');
+                const pctClass = item.returnPct > 0 ? 'text-gpf-green' : (item.returnPct < 0 ? 'text-gpf-red' : 'text-gray-400');
+
+                return `
+                    <div class="flex items-center justify-between py-2.5 border-b border-gray-100 hover:bg-gray-50/70 transition-colors px-1 text-xs sm:text-sm">
+                        <div class="w-[46%] font-medium text-gray-800 truncate">${item.label}</div>
+                        <div class="w-[28%] font-bold text-right ${profitClass}">${formattedProfit}</div>
+                        <div class="w-[26%] font-bold text-right ${pctClass}">${formattedPct}</div>
+                    </div>
+                `;
+            }).join('');
         }
 
         function shareDashboard() {
