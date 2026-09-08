@@ -225,7 +225,7 @@
             </div>
 
             <!-- Table Header Titles: 3 Columns (รายการ, ผลตอบแทน, % ผลตอบแทน) -->
-            <div class="flex justify-between items-center text-xs font-bold text-gray-400 py-2 border-b border-gray-100 px-1">
+            <div class="flex justify-between items-center text-xs sm:text-sm font-bold text-gray-500 py-2.5 border-b border-gray-100 px-1">
                 <span class="w-[46%] text-left">รายการ</span>
                 <span class="w-[28%] text-right">ผลตอบแทน</span>
                 <span class="w-[26%] text-right">% ผลตอบแทน</span>
@@ -1142,8 +1142,8 @@
                 const pctClass = item.returnPct > 0 ? 'text-gpf-green' : (item.returnPct < 0 ? 'text-gpf-red' : 'text-gray-400');
 
                 return `
-                    <div class="flex items-center justify-between py-2.5 border-b border-gray-100 hover:bg-gray-50/70 transition-colors px-1 text-xs sm:text-sm">
-                        <div class="w-[46%] font-medium text-gray-800 truncate">${item.label}</div>
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100 hover:bg-gray-50/70 transition-colors px-1 text-sm sm:text-base">
+                        <div class="w-[46%] font-semibold text-gray-800 truncate">${item.label}</div>
                         <div class="w-[28%] font-bold text-right ${profitClass}">${formattedProfit}</div>
                         <div class="w-[26%] font-bold text-right ${pctClass}">${formattedPct}</div>
                     </div>
