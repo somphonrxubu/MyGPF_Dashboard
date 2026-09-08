@@ -52,9 +52,46 @@
             width: 100%;
             height: 180px;
         }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.08); }
+        }
+        .animate-pulse-glow {
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
     </style>
 </head>
-<body class="flex justify-center items-start min-h-screen p-0 sm:p-4 text-gray-100">
+<body class="flex justify-center items-start min-h-screen p-0 sm:p-4 text-gray-100 relative">
+
+    <!-- WELCOME LOADING SCREEN -->
+    <div id="loading-screen" class="fixed inset-0 bg-[#181A20] z-[9999] flex flex-col items-center justify-center transition-all duration-500">
+        <div class="flex flex-col items-center space-y-4 px-6 text-center">
+            <!-- Animated App Icon -->
+            <div class="relative flex items-center justify-center">
+                <div class="w-20 h-20 bg-blue-600/20 rounded-3xl border border-blue-500/30 flex items-center justify-center animate-pulse-glow">
+                    <div class="w-14 h-14 bg-gradient-to-tr from-blue-600 to-blue-500 rounded-2xl flex items-center justify-center shadow-xl shadow-blue-600/40">
+                        <i class="fa-solid fa-chart-line text-white text-2xl"></i>
+                    </div>
+                </div>
+                <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-emerald-500 rounded-full border-2 border-[#181A20] flex items-center justify-center shadow-md">
+                    <i class="fa-solid fa-bolt text-[10px] text-white"></i>
+                </div>
+            </div>
+
+            <!-- Welcome Greeting & Status -->
+            <div class="space-y-1.5 pt-1">
+                <h1 class="text-xl sm:text-2xl font-black text-white tracking-wide">
+                    ยินดีต้อนรับสู่ <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-300 to-emerald-400">My GPF</span>
+                </h1>
+                <p id="loading-status-text" class="text-xs text-gray-400 font-normal">กำลังโหลดข้อมูลพอร์ตของคุณ...</p>
+            </div>
+
+            <!-- Sleek Progress Bar -->
+            <div class="w-44 bg-gray-800/80 rounded-full h-1.5 overflow-hidden mt-3 relative border border-gray-700/50">
+                <div id="loading-progress-bar" class="bg-gradient-to-r from-blue-500 to-emerald-400 h-full rounded-full transition-all duration-500 w-1/3"></div>
+            </div>
+        </div>
+    </div>
 
     <div id="app-container" class="w-full max-w-md bg-gpf-dark min-h-screen sm:min-h-0 sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col justify-between border border-gray-800/60">
         
@@ -306,6 +343,7 @@
 
     <script>
         const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTv1M6gCEH9fHNI2FNAjv9W5onhaOufKJTOkdeDBFQsDU5_EB1v6y4abGtWTmHAwW0N4AmRFDG159ew/pub?gid=1837893473&single=true&output=csv";
+        const CACHE_KEY = "gpf_portfolio_csv_cache";
         
         let rawData = [];
         let selectedIndex = 0; // Pointer to selected date index
@@ -332,8 +370,39 @@
         window.onload = function() {
             loadSavedAvatar();
             initChart();
+            
+            // Try to load cached data for ultra-fast startup (<100ms)
+            const cachedCsv = sessionStorage.getItem(CACHE_KEY);
+            if (cachedCsv) {
+                const parsed = parseCSVData(cachedCsv);
+                if (parsed && parsed.length > 0) {
+                    rawData = parsed;
+                    selectedIndex = rawData.length - 1;
+                    updateDashboard();
+                    setLoadingProgress(80);
+                }
+            }
+
+            // Fetch latest live data asynchronously with quick failover
             fetchSheetData();
         };
+
+        function setLoadingProgress(pct) {
+            const bar = document.getElementById('loading-progress-bar');
+            if (bar) bar.style.width = pct + '%';
+        }
+
+        function hideLoadingScreen() {
+            setLoadingProgress(100);
+            const screen = document.getElementById('loading-screen');
+            if (!screen) return;
+            setTimeout(() => {
+                screen.classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => {
+                    screen.style.display = 'none';
+                }, 500);
+            }, 300);
+        }
 
         function handleProfileUpload(event) {
             const file = event.target.files[0];
@@ -374,18 +443,37 @@
             }
         }
 
+        async function fetchWithTimeout(url, options = {}, timeoutMs = 4500) {
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), timeoutMs);
+            try {
+                const response = await fetch(url, {
+                    ...options,
+                    signal: controller.signal
+                });
+                clearTimeout(id);
+                return response;
+            } catch (err) {
+                clearTimeout(id);
+                throw err;
+            }
+        }
+
         async function fetchSheetData(showToastAlert = false) {
             const syncIcon = document.getElementById('sync-icon');
             if (syncIcon) syncIcon.classList.add('fa-spin');
+            setLoadingProgress(50);
 
             try {
                 let response = null;
+                // Direct fetch with timeout for quick response
                 try {
-                    response = await fetch(CSV_URL, { cache: "no-store" });
+                    response = await fetchWithTimeout(CSV_URL, { cache: "no-store" }, 3800);
                 } catch (err) {
-                    console.warn("Direct fetch blocked by CORS, trying proxy...");
+                    console.warn("Direct fetch timed out or blocked, switching to proxy...");
+                    setLoadingProgress(65);
                     const proxyUrl = "https://corsproxy.io/?" + encodeURIComponent(CSV_URL);
-                    response = await fetch(proxyUrl, { cache: "no-store" });
+                    response = await fetchWithTimeout(proxyUrl, { cache: "no-store" }, 4500);
                 }
 
                 if (!response || !response.ok) {
@@ -397,7 +485,12 @@
 
                 if (parsed && parsed.length > 0) {
                     rawData = parsed;
-                    showToast("โหลดข้อมูลเสร็จแล้ว", "success");
+                    // Cache successful response for immediate next load
+                    try {
+                        sessionStorage.setItem(CACHE_KEY, csvText);
+                    } catch (e) {}
+
+                    if (showToastAlert) showToast("โหลดข้อมูลเสร็จแล้ว", "success");
                 } else {
                     throw new Error("Empty or invalid CSV structure");
                 }
@@ -406,11 +499,12 @@
                 if (rawData.length === 0) {
                     rawData = MOCK_DATA; // Fallback to mockup data
                 }
-                showToast("ใช้ข้อมูลล่าสุดจากระบบ", "info");
+                if (showToastAlert) showToast("ใช้ข้อมูลล่าสุดจากระบบ", "info");
             } finally {
                 if (syncIcon) syncIcon.classList.remove('fa-spin');
                 selectedIndex = rawData.length - 1; // Default to latest date
                 updateDashboard();
+                hideLoadingScreen();
             }
         }
 
