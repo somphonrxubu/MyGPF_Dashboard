@@ -2,8 +2,21 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>My GPF - สมผล สังขะวรรณ</title>
+
+    <!-- ================= iOS & Web App Icon Settings ================= -->
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/somphonrxubu/MyGPF_Dashboard/refs/heads/main/MyGPF_icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/somphonrxubu/MyGPF_Dashboard/refs/heads/main/MyGPF_icon.png">
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/somphonrxubu/MyGPF_Dashboard/refs/heads/main/MyGPF_icon.png">
+    
+    <!-- ตั้งค่า iOS Home Screen Shortcut ให้เปิดเต็มจอและแสดงชื่อไอคอน -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="My GPF">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- ============================================================== -->
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js for interactive dynamic line chart -->
@@ -237,108 +250,100 @@
             </div>
         </div>
 
-    <!-- Details Modal Pop-up -->
-    <div id="details-modal" onclick="if(event.target===this) closeDetailsModal()" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 opacity-0 pointer-events-none transition-all duration-300">
-        <div class="bg-gpf-dark text-white rounded-2xl border border-gray-800/80 shadow-2xl w-full max-w-md max-h-[85vh] flex flex-col overflow-hidden transform scale-95 transition-transform duration-300" id="details-modal-content">
-            <!-- Modal Header -->
-            <div class="flex justify-between items-center p-4 border-b border-gray-800/80 bg-gpf-dark/95 sticky top-0 z-10">
-                <div class="flex items-center space-x-2">
-                    <i class="fa-solid fa-table-list text-gpf-blue text-sm"></i>
-                    <h3 class="text-base font-bold text-white tracking-wide">รายละเอียดผลตอบแทน</h3>
+        <!-- Details Modal Pop-up -->
+        <div id="details-modal" onclick="if(event.target===this) closeDetailsModal()" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 opacity-0 pointer-events-none transition-all duration-300">
+            <div class="bg-gpf-dark text-white rounded-2xl border border-gray-800/80 shadow-2xl w-full max-w-md max-h-[85vh] flex flex-col overflow-hidden transform scale-95 transition-transform duration-300" id="details-modal-content">
+                <!-- Modal Header -->
+                <div class="flex justify-between items-center p-4 border-b border-gray-800/80 bg-gpf-dark/95 sticky top-0 z-10">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-table-list text-gpf-blue text-sm"></i>
+                        <h3 class="text-base font-bold text-white tracking-wide">รายละเอียดผลตอบแทน</h3>
+                    </div>
+                    <button onclick="closeDetailsModal()" class="w-8 h-8 rounded-full bg-gpf-card hover:bg-gpf-card-hover text-gray-400 hover:text-white flex items-center justify-center transition-colors">
+                        <i class="fa-solid fa-xmark text-sm"></i>
+                    </button>
                 </div>
-                <button onclick="closeDetailsModal()" class="w-8 h-8 rounded-full bg-gpf-card hover:bg-gpf-card-hover text-gray-400 hover:text-white flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-xmark text-sm"></i>
-                </button>
-            </div>
 
-            <!-- Modal Body Table -->
-            <div class="overflow-y-auto custom-scrollbar p-3 sm:p-4 flex-grow">
-                <table class="w-full text-left border-collapse table-fixed">
-                    <thead class="sticky top-0 bg-gpf-dark z-10">
-                        <tr class="text-[11px] sm:text-xs text-gray-400 border-b border-gray-800/80">
-                            <th class="py-2 px-1 font-semibold text-center w-[28%]">วันที่</th>
-                            <th class="py-2 px-1 font-semibold text-right w-[34%]">มูลค่าพอร์ตรวม</th>
-                            <th class="py-2 px-1 font-semibold text-right w-[38%]">ผลตอบแทน</th>
-                        </tr>
-                    </thead>
-                    <tbody id="details-table-body" class="divide-y divide-gray-800/60 text-xs sm:text-sm">
-                        <!-- Dynamic Rows -->
-                    </tbody>
-                </table>
+                <!-- Modal Body Table -->
+                <div class="overflow-y-auto custom-scrollbar p-3 sm:p-4 flex-grow">
+                    <table class="w-full text-left border-collapse table-fixed">
+                        <thead class="sticky top-0 bg-gpf-dark z-10">
+                            <tr class="text-[11px] sm:text-xs text-gray-400 border-b border-gray-800/80">
+                                <th class="py-2 px-1 font-semibold text-center w-[28%]">วันที่</th>
+                                <th class="py-2 px-1 font-semibold text-right w-[34%]">มูลค่าพอร์ตรวม</th>
+                                <th class="py-2 px-1 font-semibold text-right w-[38%]">ผลตอบแทน</th>
+                            </tr>
+                        </thead>
+                        <tbody id="details-table-body" class="divide-y divide-gray-800/60 text-xs sm:text-sm">
+                            <!-- Dynamic Rows -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Calendar Modal Pop-up (Modern Thai Calendar starting on Sunday) -->
-    <div id="calendar-modal" onclick="if(event.target===this) closeCalendarModal()" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4 opacity-0 pointer-events-none transition-all duration-300">
-        <div id="calendar-modal-content" class="bg-gpf-dark text-white rounded-3xl border border-gray-800/90 shadow-2xl w-full max-w-sm flex flex-col overflow-hidden transform scale-95 transition-all duration-300">
-            <!-- Modal Header -->
-            <div class="flex justify-between items-center px-5 py-4 border-b border-gray-800/80 bg-gpf-dark/95">
-                <div class="flex items-center space-x-2.5">
-                    <div class="w-8 h-8 rounded-xl bg-gpf-blue/20 border border-gpf-blue/30 flex items-center justify-center text-gpf-blue">
-                        <i class="fa-regular fa-calendar-days text-sm"></i>
+        <!-- Calendar Modal Pop-up (Modern Sleek Thai Calendar) -->
+        <div id="calendar-modal" onclick="if(event.target===this) closeCalendarModal()" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+            <div id="calendar-modal-content" class="bg-[#24262b] text-white rounded-[32px] border border-gray-700/60 shadow-2xl w-full max-w-[340px] flex flex-col overflow-hidden transform scale-95 transition-all duration-300 p-5">
+                <!-- Modal Header: Month/Year with navigation chevrons -->
+                <div class="flex justify-between items-center mb-3">
+                    <div class="flex items-center space-x-1 cursor-pointer select-none">
+                        <span id="calendar-month-year-title" class="text-xl font-bold text-white tracking-wide">กันยายน 2569</span>
+                        <i class="fa-solid fa-chevron-right text-blue-500 text-sm font-bold ml-1"></i>
                     </div>
-                    <h3 class="text-base font-bold text-white tracking-wide">เลือกวันที่ต้องการ</h3>
-                </div>
-                <button onclick="closeCalendarModal()" class="w-8 h-8 rounded-full bg-gpf-card hover:bg-gpf-card-hover text-gray-400 hover:text-white flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-xmark text-sm"></i>
-                </button>
-            </div>
-
-            <!-- Calendar Control Bar (Month/Year Switcher) -->
-            <div class="p-4 bg-gpf-dark">
-                <div class="flex justify-between items-center bg-gpf-card p-2 rounded-2xl border border-gray-800 mb-3 shadow-inner">
-                    <button onclick="changeCalendarMonth(-1)" class="w-8 h-8 rounded-xl bg-gpf-card-hover hover:bg-gray-700 text-gray-300 hover:text-white flex items-center justify-center transition-colors">
-                        <i class="fa-solid fa-chevron-left text-xs"></i>
-                    </button>
-                    <div id="calendar-month-year-title" class="text-sm font-bold text-white tracking-wide">
-                        สิงหาคม 2569
+                    <div class="flex items-center space-x-4">
+                        <button onclick="changeCalendarMonth(-1)" class="text-blue-500 hover:text-blue-400 text-xl font-bold p-1 transition-colors" title="เดือนก่อนหน้า">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button onclick="changeCalendarMonth(1)" class="text-blue-500 hover:text-blue-400 text-xl font-bold p-1 transition-colors" title="เดือนถัดไป">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                        <button onclick="closeCalendarModal()" class="text-gray-400 hover:text-white text-lg p-1 ml-0.5 transition-colors" title="ปิด">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
                     </div>
-                    <button onclick="changeCalendarMonth(1)" class="w-8 h-8 rounded-xl bg-gpf-card-hover hover:bg-gray-700 text-gray-300 hover:text-white flex items-center justify-center transition-colors">
-                        <i class="fa-solid fa-chevron-right text-xs"></i>
-                    </button>
-                </div>
-
-                <!-- Quick Action Legend & Reset Button -->
-                <div class="flex justify-between items-center px-1 mb-3">
-                    <div class="flex items-center space-x-3 text-[11px] text-gray-400 font-medium">
-                        <div class="flex items-center space-x-1.5">
-                            <span class="w-2 h-2 rounded-full bg-gpf-green inline-block shadow-sm shadow-gpf-green/50"></span>
-                            <span>กำไร</span>
-                        </div>
-                        <div class="flex items-center space-x-1.5">
-                            <span class="w-2 h-2 rounded-full bg-gpf-red inline-block shadow-sm shadow-gpf-red/50"></span>
-                            <span>ขาดทุน</span>
-                        </div>
-                    </div>
-                    <button onclick="goToLatestDate()" class="text-xs font-bold text-gpf-blue hover:text-blue-300 transition-colors flex items-center space-x-1.5 bg-gpf-blue/10 px-2.5 py-1 rounded-full border border-gpf-blue/20">
-                        <i class="fa-solid fa-clock-rotate-left text-[10px]"></i>
-                        <span>ไปยังวันที่ล่าสุด</span>
-                    </button>
                 </div>
 
                 <!-- Days of Week Header (Starting on Sunday!) -->
-                <div class="grid grid-cols-7 gap-1 text-center text-xs font-bold mb-2 py-1.5 bg-gpf-card/60 rounded-xl border border-gray-800/80">
-                    <span class="text-gpf-red">อา.</span>
-                    <span class="text-gray-400">จ.</span>
-                    <span class="text-gray-400">อ.</span>
-                    <span class="text-gray-400">พ.</span>
-                    <span class="text-gray-400">พฤ.</span>
-                    <span class="text-gray-400">ศ.</span>
-                    <span class="text-gray-400">ส.</span>
+                <div class="grid grid-cols-7 gap-1 text-center text-sm text-gray-400 font-medium mb-2 py-1 select-none">
+                    <span>อา</span>
+                    <span>จ</span>
+                    <span>อ</span>
+                    <span>พ</span>
+                    <span>พฤ</span>
+                    <span>ศ</span>
+                    <span>ส</span>
                 </div>
 
                 <!-- Calendar Days Grid -->
-                <div id="calendar-days-grid" class="grid grid-cols-7 gap-1.5 text-center text-xs">
+                <div id="calendar-days-grid" class="grid grid-cols-7 gap-y-2 text-center select-none">
                     <!-- Dynamic Date Cells -->
+                </div>
+
+                <!-- Bottom Action Bar: Legend & Return to Current Date -->
+                <div class="mt-4 pt-3 border-t border-gray-800/80 flex items-center justify-between select-none">
+                    <div class="flex items-center space-x-2 text-[11px] text-gray-400">
+                        <div class="flex items-center space-x-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-gpf-green inline-block shadow-sm shadow-gpf-green/50"></span>
+                            <span>กำไร</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-gpf-red inline-block shadow-sm shadow-gpf-red/50"></span>
+                            <span>ขาดทุน</span>
+                        </div>
+                    </div>
+                    <button onclick="goToLatestDate()" class="text-xs font-semibold text-blue-400 hover:text-blue-300 transition-colors flex items-center space-x-1.5 bg-blue-500/10 hover:bg-blue-500/20 px-3 py-1.5 rounded-full border border-blue-500/25">
+                        <i class="fa-solid fa-clock-rotate-left text-[11px]"></i>
+                        <span>กลับสู่วันปัจจุบัน</span>
+                    </button>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-gpf-card text-white text-xs px-4 py-2.5 rounded-full shadow-2xl opacity-0 pointer-events-none transition-all duration-300 border border-gray-800 z-50 flex items-center space-x-2">
-        <i id="toast-icon" class="fa-solid fa-circle-check text-gpf-green"></i>
-        <span id="toast-msg">โหลดข้อมูลเรียบร้อยแล้ว</span>
+        <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-gpf-card text-white text-xs px-4 py-2.5 rounded-full shadow-2xl opacity-0 pointer-events-none transition-all duration-300 border border-gray-800 z-50 flex items-center space-x-2">
+            <i id="toast-icon" class="fa-solid fa-circle-check text-gpf-green"></i>
+            <span id="toast-msg">โหลดข้อมูลเรียบร้อยแล้ว</span>
+        </div>
     </div>
 
     <script>
@@ -466,7 +471,6 @@
 
             try {
                 let response = null;
-                // Direct fetch with timeout for quick response
                 try {
                     response = await fetchWithTimeout(CSV_URL, { cache: "no-store" }, 3800);
                 } catch (err) {
@@ -485,7 +489,6 @@
 
                 if (parsed && parsed.length > 0) {
                     rawData = parsed;
-                    // Cache successful response for immediate next load
                     try {
                         sessionStorage.setItem(CACHE_KEY, csvText);
                     } catch (e) {}
@@ -497,12 +500,12 @@
             } catch (error) {
                 console.error("Error loading CSV:", error);
                 if (rawData.length === 0) {
-                    rawData = MOCK_DATA; // Fallback to mockup data
+                    rawData = MOCK_DATA;
                 }
                 if (showToastAlert) showToast("ใช้ข้อมูลล่าสุดจากระบบ", "info");
             } finally {
                 if (syncIcon) syncIcon.classList.remove('fa-spin');
-                selectedIndex = rawData.length - 1; // Default to latest date
+                selectedIndex = rawData.length - 1;
                 updateDashboard();
                 hideLoadingScreen();
             }
@@ -515,12 +518,10 @@
             const headers = parseCSVLine(lines[0]);
             const cleanHeaders = headers.map(h => cleanStr(h));
             
-            // Map column indices (Strict mapping to standard positions A=0, D=3, E=4, H=7, I=8, M=12)
             let colDate = cleanHeaders.findIndex(h => h.includes('วันที่'));
             let colTotal = cleanHeaders.findIndex(h => h.includes('รวมสะสม'));
             let colDiff = cleanHeaders.findIndex(h => h.includes('เพิ่ม/ลด'));
             let colProfit = cleanHeaders.findIndex(h => h.includes('กำไร') || h.includes('ขาดทุน'));
-            // Search specifically for '%ผลตอบแทน' or 'ผลตอบแทน' in Column I
             let colReturn = cleanHeaders.findIndex(h => h.includes('%ผลตอบแทน') || h.includes('ผลตอบแทน'));
             let colPlan = cleanHeaders.findIndex(h => h.includes('แผน'));
 
@@ -536,7 +537,6 @@
                 const row = parseCSVLine(lines[i]);
                 const rawDateStr = cleanStr(row[colDate]);
                 
-                // Strict check: Only include rows that have a valid 4-digit year (e.g., skip summary/header/total rows)
                 if (!rawDateStr || !extractYear(rawDateStr)) continue;
 
                 list.push({
@@ -595,10 +595,8 @@
             if (!rawData || rawData.length === 0) return;
             const currentData = rawData[selectedIndex];
 
-            // 1. Update Date Header
             document.getElementById('current-selected-date').innerText = currentData.dateStr;
 
-            // 2. Total Portfolio Value Display
             const totalVal = currentData.total;
             const parts = formatMoneyParts(totalVal);
             
@@ -610,28 +608,20 @@
                 document.getElementById('total-portfolio-value-dec').innerText = '.••';
             }
 
-            // 3. Today Card
             const todayDiff = currentData.diff;
             const todayPct = currentData.returnPct;
             renderMetric('today-amount', 'today-pct', todayDiff, todayPct, true);
 
-            // 4. Profit Year Card (Sum of Col H & Sum of Col I for current year up to selected date)
             const currentYear = extractYear(currentData.dateStr);
             const yearRecords = rawData.slice(0, selectedIndex + 1).filter(d => extractYear(d.dateStr) === currentYear);
             
-            // Total Profit amount: Sum of column H ("กำไร/ขาดทุน") for current year up to selected date
             const yearProfitSum = yearRecords.reduce((acc, r) => acc + (r.profit || 0), 0);
-            
-            // Total Return %: Sum of column I ("%ผลตอบแทน") for current year up to selected date
             const yearPctSum = yearRecords.reduce((acc, r) => acc + (r.returnPct || 0), 0);
 
             document.getElementById('profit-year-label').innerText = `กำไรปี ${currentYear || '2569'}`;
             renderMetric('profit-year-amount', 'profit-year-pct', yearProfitSum, yearPctSum, true);
 
-            // 5. Investment Plan Card & Breakdown Table (Synced with chart range)
             renderPlanBreakdown();
-
-            // 6. Refresh Chart
             renderChart();
         }
 
@@ -646,7 +636,6 @@
             const clean = dateStr.trim();
             const THAI_MONTHS_SHORT = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
             
-            // Space separated "13 ส.ค. 2569"
             const parts = clean.split(/\s+/);
             if (parts.length >= 3) {
                 const day = parseInt(parts[0], 10) || 1;
@@ -668,7 +657,6 @@
                 return { day, monthIdx, monthShort: THAI_MONTHS_SHORT[monthIdx], year };
             }
 
-            // Slash separated "13/08/2569"
             if (clean.includes('/')) {
                 const p = clean.split('/');
                 if (p.length >= 3) {
@@ -681,7 +669,6 @@
                 }
             }
 
-            // Fallback
             const yearMatch = clean.match(/\d{4}/);
             const year = yearMatch ? parseInt(yearMatch[0], 10) : 2569;
             return { day: 1, monthIdx: 0, monthShort: '', year };
@@ -862,7 +849,6 @@
 
             let leftPos = positionX + tooltip.caretX;
 
-            // Clamp left/right bounds so tooltip never overflows chart container edges
             const edgePadding = 8;
             if (leftPos - halfWidth < positionX + edgePadding) {
                 leftPos = positionX + edgePadding + halfWidth;
@@ -890,7 +876,6 @@
             let chartRecords = [];
 
             if (range === '7d') {
-                // 1. 7 วัน: แสดง 7 รายการล่าสุด แกนนอนแสดง "วัน เดือนย่อ" เช่น 5 ส.ค.
                 const last7 = recordsUpToSelected.slice(-7);
                 labels = last7.map(d => {
                     const info = parseDateInfo(d.dateStr);
@@ -900,8 +885,6 @@
                 chartRecords = last7;
             } 
             else if (range === 'monthly') {
-                // 3. รายเดือน: ข้อมูลรายเดือนในปีปัจจุบัน ใช้ข้อมูลวันสุดท้ายของเดือนนั้นๆ 
-                // Tooltip แสดงผลรวม Column H (กำไร/ขาดทุน) และผลรวม Column I (%ผลตอบแทน) ของเดือนนั้นๆ
                 const thisYearRecords = recordsUpToSelected.filter(d => parseDateInfo(d.dateStr).year === currentYear);
                 
                 const monthGroupMap = new Map();
@@ -934,8 +917,6 @@
                 values = chartRecords.map(r => r.total);
             } 
             else if (range === 'yearly') {
-                // 4. รายปี: ข้อมูลรายปี 10 ปีย้อนหลังถึงปีปัจจุบัน ใช้ข้อมูลวันสุดท้ายของปีนั้นๆ 
-                // Tooltip แสดงผลรวม Column H (กำไร/ขาดทุน) และผลรวม Column I (%ผลตอบแทน) ของปีนั้นๆ
                 const minYear = currentYear - 9;
                 const yearGroupMap = new Map();
 
@@ -967,8 +948,6 @@
                 values = chartRecords.map(r => r.total);
             } 
             else if (range === 'all') {
-                // 5. ทั้งหมด: ข้อมูลรายปีตั้งแต่แรกเริ่มถึงปีปัจจุบัน ใช้ข้อมูลวันสุดท้ายของปีนั้นๆ 
-                // Tooltip แสดงผลรวม Column H (กำไร/ขาดทุน) และผลรวม Column I (%ผลตอบแทน) ของปีนั้นๆ
                 const yearGroupMap = new Map();
 
                 recordsUpToSelected.forEach(d => {
@@ -1031,7 +1010,6 @@
             let items = [];
 
             if (range === '7d') {
-                // 1. 7 วันล่าสุด เรียงจากบนลงล่าง ใหม่ไปเก่า
                 const last7 = recordsUpToSelected.slice(-7);
                 const reversed = [...last7].reverse();
                 items = reversed.map(d => {
@@ -1042,7 +1020,6 @@
                     return { label, profit: profitVal, returnPct: pctVal };
                 });
             } else if (range === 'monthly') {
-                // 2. รายเดือนในปีปัจจุบัน เรียงจากบนลงล่าง ใหม่ไปเก่า
                 const thisYearRecords = recordsUpToSelected.filter(d => parseDateInfo(d.dateStr).year === currentYear);
                 const monthGroupMap = new Map();
 
@@ -1054,7 +1031,6 @@
                     monthGroupMap.get(info.monthIdx).push(d);
                 });
 
-                // เรียงเดือนจากใหม่ไปเก่า (มากไปน้อย เช่น ก.ย. -> ม.ค.)
                 const sortedMonthKeys = Array.from(monthGroupMap.keys()).sort((a, b) => b - a);
                 items = sortedMonthKeys.map(mIdx => {
                     const recs = monthGroupMap.get(mIdx);
@@ -1067,7 +1043,6 @@
                     };
                 });
             } else if (range === 'yearly') {
-                // 3. รายปีย้อนหลัง 10 ปี เรียงจากบนลงล่าง ใหม่ไปเก่า
                 const minYear = currentYear - 9;
                 const yearGroupMap = new Map();
 
@@ -1081,7 +1056,6 @@
                     }
                 });
 
-                // เรียงปีจากใหม่ไปเก่า (มากไปน้อย เช่น 2569 -> 2560)
                 const sortedYears = Array.from(yearGroupMap.keys()).sort((a, b) => b - a);
                 items = sortedYears.map(y => {
                     const recs = yearGroupMap.get(y);
@@ -1094,7 +1068,6 @@
                     };
                 });
             } else if (range === 'all') {
-                // 4. ทั้งหมดย้อนหลังจนถึงปีแรก เรียงจากบนลงล่าง ใหม่ไปเก่า
                 const yearGroupMap = new Map();
 
                 recordsUpToSelected.forEach(d => {
@@ -1107,7 +1080,6 @@
                     }
                 });
 
-                // เรียงปีจากใหม่ไปเก่า (มากไปน้อย)
                 const sortedYears = Array.from(yearGroupMap.keys()).sort((a, b) => b - a);
                 items = sortedYears.map(y => {
                     const recs = yearGroupMap.get(y);
@@ -1155,7 +1127,6 @@
             const currentData = rawData[selectedIndex];
             const userName = document.getElementById('user-name') ? document.getElementById('user-name').innerText : 'สมผล สังขะวรรณ';
             
-            // Format plan name for concise display (e.g., "แผนชะรีอะฮ์" -> "ชะรีอะฮ์")
             let planName = currentData.plan || "ชะรีอะฮ์";
             if (planName.includes("ชะรีอะฮ์")) {
                 planName = "ชะรีอะฮ์";
@@ -1284,60 +1255,52 @@
             const gridEl = document.getElementById('calendar-days-grid');
             if (!titleEl || !gridEl) return;
 
-            // Set Title e.g., "สิงหาคม 2569"
             titleEl.innerText = `${THAI_FULL_MONTHS[calViewMonth]} ${calViewYear}`;
 
-            // Compute dates math (convert BE to AD for JavaScript Date object)
             const gregorianYear = calViewYear > 2400 ? calViewYear - 543 : calViewYear;
             const firstDayObj = new Date(gregorianYear, calViewMonth, 1);
             
-            // getDay(): 0 = Sunday, 1 = Monday, ..., 6 = Saturday.
             const firstDayIndex = firstDayObj.getDay(); 
-
             const daysInMonth = new Date(gregorianYear, calViewMonth + 1, 0).getDate();
-            const daysInPrevMonth = new Date(gregorianYear, calViewMonth, 0).getDate();
 
             const currentSelectedRec = rawData[selectedIndex];
             const selectedInfo = parseDateInfo(currentSelectedRec ? currentSelectedRec.dateStr : '');
 
+            const latestRec = rawData.length > 0 ? rawData[rawData.length - 1] : null;
+            const latestInfo = latestRec ? parseDateInfo(latestRec.dateStr) : null;
+
             let html = '';
 
-            // 1. Leading Prev Month Cells (Faded)
-            for (let i = firstDayIndex - 1; i >= 0; i--) {
-                const prevDayNum = daysInPrevMonth - i;
-                html += `
-                    <div class="h-10 flex flex-col items-center justify-center text-gray-600 opacity-25 select-none rounded-xl">
-                        <span>${prevDayNum}</span>
-                    </div>
-                `;
+            for (let i = 0; i < firstDayIndex; i++) {
+                html += `<div class="h-10 w-10"></div>`;
             }
 
-            // 2. Current Month Day Cells
             for (let d = 1; d <= daysInMonth; d++) {
                 const recIdx = findRecordIndex(d, calViewMonth, calViewYear);
                 const hasData = recIdx !== -1;
                 const rec = hasData ? rawData[recIdx] : null;
                 const isSelected = selectedInfo.day === d && selectedInfo.monthIdx === calViewMonth && selectedInfo.year === calViewYear;
+                const isLatest = latestInfo && latestInfo.day === d && latestInfo.monthIdx === calViewMonth && latestInfo.year === calViewYear;
 
-                let btnClasses = "h-10 rounded-xl flex flex-col items-center justify-center relative transition-all duration-200 cursor-pointer ";
-                
+                let btnClasses = "w-10 h-10 mx-auto rounded-full flex flex-col items-center justify-center relative transition-all duration-150 ";
+                let textClasses = "text-base sm:text-lg ";
+
                 if (isSelected) {
-                    btnClasses += "bg-gpf-blue text-white font-bold shadow-lg shadow-gpf-blue/40 ring-2 ring-blue-400/80 scale-105 z-10";
+                    btnClasses += "bg-[#2d3a4f] cursor-pointer shadow-md";
+                    textClasses += "text-blue-400 font-bold";
                 } else if (hasData) {
-                    btnClasses += "bg-gpf-card text-white font-bold hover:bg-gpf-card-hover border border-gray-800/80 shadow-sm";
+                    btnClasses += "cursor-pointer hover:bg-gray-700/50";
+                    textClasses += isLatest ? "text-blue-400 font-bold" : "text-white font-medium";
                 } else {
-                    btnClasses += "text-gray-500 hover:bg-gpf-card/40 hover:text-gray-300";
+                    btnClasses += "cursor-default select-none";
+                    textClasses += isLatest ? "text-blue-400 font-semibold" : "text-gray-500/80";
                 }
 
                 let dotIndicator = '';
                 if (hasData) {
                     const isProfit = rec && (rec.profit >= 0);
                     const dotColor = isProfit ? 'bg-gpf-green shadow-gpf-green/60' : 'bg-gpf-red shadow-gpf-red/60';
-                    if (isSelected) {
-                        dotIndicator = `<span class="w-1.5 h-1.5 bg-white rounded-full absolute bottom-1"></span>`;
-                    } else {
-                        dotIndicator = `<span class="w-1.5 h-1.5 ${dotColor} rounded-full absolute bottom-1 shadow-sm"></span>`;
-                    }
+                    dotIndicator = `<span class="w-1.5 h-1.5 ${dotColor} rounded-full absolute bottom-0.5 shadow-sm"></span>`;
                 }
 
                 const clickHandler = hasData ? 
@@ -1346,20 +1309,8 @@
 
                 html += `
                     <div ${clickHandler} class="${btnClasses}">
-                        <span class="text-xs sm:text-sm tracking-tight">${d}</span>
+                        <span class="${textClasses}">${d}</span>
                         ${dotIndicator}
-                    </div>
-                `;
-            }
-
-            // 3. Trailing Next Month Cells (Faded)
-            const totalCellsSoFar = firstDayIndex + daysInMonth;
-            const trailingCount = (totalCellsSoFar % 7 === 0) ? 0 : (7 - (totalCellsSoFar % 7));
-
-            for (let n = 1; n <= trailingCount; n++) {
-                html += `
-                    <div class="h-10 flex flex-col items-center justify-center text-gray-600 opacity-25 select-none rounded-xl">
-                        <span>${n}</span>
                     </div>
                 `;
             }
@@ -1380,7 +1331,6 @@
             const tbody = document.getElementById('details-table-body');
             if (!tbody || !rawData || rawData.length === 0) return;
 
-            // Sort data newest first
             const sortedData = [...rawData].reverse();
 
             tbody.innerHTML = sortedData.map(item => {
@@ -1392,7 +1342,6 @@
                 const profitFormatted = formatSignMoney(profitVal);
                 const returnPctFormatted = formatSignPct(returnPctVal);
 
-                // Format short date (e.g. "14 ส.ค. 2569")
                 const dateInfo = parseDateInfo(item.dateStr);
                 const shortDateStr = dateInfo.monthShort ? `${dateInfo.day} ${dateInfo.monthShort} ${dateInfo.year}` : item.dateStr;
 
