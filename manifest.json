@@ -1,0 +1,20 @@
+{
+"name": "My GPF",
+"short_name": "My GPF",
+"start_url": "./index.html",
+"display": "standalone",
+"background_color": "#181A20",
+"theme_color": "#181A20",
+"icons": [
+{
+"src": "https://raw.githubusercontent.com/somphonrxubu/MyGPF_Dashboard/refs/heads/main/MyGPF_icon.png",
+"sizes": "192x192",
+"type": "image/png"
+},
+{
+"src": "https://raw.githubusercontent.com/somphonrxubu/MyGPF_Dashboard/refs/heads/main/MyGPF_icon.png",
+"sizes": "512x512",
+"type": "image/png"
+}
+]
+}
